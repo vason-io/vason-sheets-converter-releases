@@ -5,6 +5,9 @@ on:
     paths:
       - VERSION  # Trigger only when the VERSION file is changed
 
+permissions:
+  contents: write
+
 jobs:
   create-release:
     name: 🚀 Create release
