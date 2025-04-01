@@ -1,0 +1,32 @@
+name: 🚀 Release on VERSION change
+
+on:
+  push:
+    paths:
+      - VERSION  # Trigger only when the VERSION file is changed
+
+jobs:
+  create-release:
+    name: 🚀 Create release
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔢 Read Version
+        run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+      - name: 🎁 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
+          body: "Release version ${{ env.VERSION }}"
+          draft: false
+          prerelease: false
+          files: |
+            VERSION
+            converter.jar
