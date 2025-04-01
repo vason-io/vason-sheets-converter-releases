@@ -1,6 +1,7 @@
 name: 🚀 Release on VERSION change
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - VERSION  # Trigger only when the VERSION file is changed
